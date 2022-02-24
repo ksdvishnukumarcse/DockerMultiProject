@@ -155,8 +155,16 @@ apt-get update
 apt-get install vim
 ```
 
+
+## Incase to restore the packages from private of custom feed refer the below link to implement
+``` bash
+# https://www.programmingwithwolfgang.com/restore-nuget-inside-docker/
 ```
 
+``` bash
+# https://github.com/WolfgangOfner/MicroserviceDemo/blob/master/CustomerApi/CustomerApi/Dockerfile
 ```
 
+``` bash
+#https://github.com/WolfgangOfner/MicroserviceDemo/blob/master/CustomerApi/CustomerApi/nuget.config
 ```
