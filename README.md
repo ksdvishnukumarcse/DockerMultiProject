@@ -100,6 +100,16 @@ docker kill <Container_Id>
 docker stop <Container_Name>
 ```
 
+## To Pull the image and run the container
+```bash 
+docker run <Image_Name>:<Tag_Name>
+```
+
+## To Pull the image
+```bash 
+docker pull <Image_Name>:<Tag_Name>
+```
+
 ## To login to Docker Hub
 ``` bash
 docker login
