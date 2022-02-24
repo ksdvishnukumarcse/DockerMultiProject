@@ -1,0 +1,19 @@
+version: '3' #Docker Compose Version
+services:
+  ##Specify the Container Name
+  MyFirstContainerName:
+    image: imageName:Tag
+    ports:
+      - 8080:80 #<Host_Port>:<Container_Port>
+    environment:
+      - SomeEnvtKey1=SomeValue1 #<Environment_Key1>=<Environment_Value1>
+      - SomeEnvtKey2=SomeValue2 #<Environment_Key2>=<Environment_Value2>
+  MySecondContainerName:
+    depends_on:
+      - MyFirstContainerName #Dependent Service / Container Name in case MySecondContainerName is depends on MyFirstContainerName
+    image: imageName:Tag
+    ports:
+      - 8080:80 #<Host_Port>:<Container_Port>
+    environment:
+      - SomeEnvtKey1=SomeValue1 #<Environment_Key1>=<Environment_Value1>
+      - SomeEnvtKey2=SomeValue2 #<Environment_Key2>=<Environment_Value2>

@@ -175,7 +175,6 @@ apt-get update
 apt-get install vim
 ```
 
-
 ## Incase to restore the packages from private of custom feed refer the below link to implement
 ``` bash
 # https://www.programmingwithwolfgang.com/restore-nuget-inside-docker/
@@ -187,4 +186,79 @@ apt-get install vim
 
 ``` bash
 #https://github.com/WolfgangOfner/MicroserviceDemo/blob/master/CustomerApi/CustomerApi/nuget.config
+```
+
+
+## To get the list of Docker network
+``` bash
+docker network ls 
+```
+
+## To create a new network in Docker
+``` bash
+docker network create <Network_Name>
+```
+
+## Create and Run a container with specific Docker Network
+``` bash
+docker run -d -p <Host_Port>:<Container_Port> --network <Network_Name>
+```
+
+## Assign a Enviroment variable while creating the Container
+"/" used to split the long command to multiline command
+``` bash
+docker run -d -p <Host_Port>:<Container_Port> --network <Network_Name> /
+-e <Envt_Variable_Name_1>=<Value1> /
+-e <Envt_Variable_Name_2>=<Value2> 
+--name <Container_Name> /
+<Image_Name>:<Tag_Name>
+```
+
+
+## To See the Container Logs
+``` bash
+docker logs <Container_Id>
+```
+
+## To see last log from the Container
+``` bash
+docker logs <Container_Id> | tail
+```
+
+## To stream the container logs (With out re-querying the container log and also can edit the logs like "------------------" to mark the last log)
+``` bash
+docker logs <Container_Id> -f
+```
+
+## Docker Compose YAML file Syantax
+Note: Docker Compose will take care of creating the network for all the containers if YAML has responsibilty to create more than one Container (Same Network to all the Containers)
+
+```bash
+version: '3' #Docker Compose Version
+services:
+  ##Specify the Container Name
+  MyFirstContainerName:
+    image: imageName:Tag
+    ports:
+      - 8080:80 #<Host_Port>:<Container_Port>
+    environment:
+      - SomeEnvtKey1=SomeValue1 #<Environment_Key1>=<Environment_Value1>
+      - SomeEnvtKey2=SomeValue2 #<Environment_Key2>=<Environment_Value2>
+  MySecondContainerName:
+    depends_on:
+      - MyFirstContainerName #Dependent Service / Container Name in case MySecondContainerName is depends on MyFirstContainerName
+    image: imageName:Tag
+    ports:
+      - 8080:80 #<Host_Port>:<Container_Port>
+    environment:
+      - SomeEnvtKey1=SomeValue1 #<Environment_Key1>=<Environment_Value1>
+      - SomeEnvtKey2=SomeValue2 #<Environment_Key2>=<Environment_Value2>
+```
+
+## To run the Docker Compose file
+Note:By default Docker Compose is installed as part of the Docker Installation'
+
+``` bash
+docker-compose -f <Docker_Compose_FileName.yaml> up
+"up" refers to run the container
 ```
