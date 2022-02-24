@@ -110,6 +110,11 @@ docker run <Image_Name>:<Tag_Name>
 docker run -p <Host_Port>:<Container_Port> <Image_Name>:<Tag_Name>
 ```
 
+## To Create the Container with specific Container Name
+```bash 
+docker run -p <Host_Port>:<Container_Port> --name <Container_Name> <Image_Name>:<Tag_Name>
+```
+
 ## To Pull the image
 ```bash 
 docker pull <Image_Name>:<Tag_Name>
