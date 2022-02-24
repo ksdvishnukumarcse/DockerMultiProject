@@ -257,8 +257,13 @@ services:
 
 ## To run the Docker Compose file
 Note:By default Docker Compose is installed as part of the Docker Installation'
-
 ``` bash
-docker-compose -f <Docker_Compose_FileName.yaml> up
+docker-compose -f <Docker_Compose_FileName.yaml> up -d
 "up" refers to run the container
+```
+
+## To stop and removed the containers which got created through Docker Compose file
+Note:The below commpand will stop and remove the containers and also Docker network
+``` bash
+docker-compose -f <Docker_Compose_FileName.yaml> down
 ```
