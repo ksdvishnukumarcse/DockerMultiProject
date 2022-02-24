@@ -28,69 +28,129 @@ To start container which was stopped, type _Docker start_ command:
 ``` bash
 docker start my-running-application
 ```
+
 ## Navigate to Solution folder and run the below command
-# docker build -f Aspnetcoreapp\Dockerfile -t docker-multi-project:V1 .
+``` bash
+docker build -f Aspnetcoreapp\Dockerfile -t docker-multi-project:V1 .
+```
+
+``` bash
 # docker run -d -p 8081:80 --name docker-multi-project-container docker-multi-project:V1
+```
+
+``` bash
 # docker stop docker-multi-project-container
+```
+
+``` bash
 # docker start docker-multi-project-container
-# Browse the URL which is hosted http://localhost:8081/
+```
 
-# To view list of Docker image
-# docker images
+``` bash
+Browse the URL which is hosted http://localhost:8081/
+```
 
-# To remove the image forcefully
-# docker image rm -f <Image_Id>
+## To view list of Docker image
+``` bash
+docker images
+```
 
-# To Delete the Docker image from local store
-# docker rmi <Image_Id>
+## To remove the image forcefully
+``` bash
+docker image rm -f <Image_Id>
+```
 
-# To Delete the Docker Image which is used by Stopped Container
-# docker rmi -f <Image_Id>
+## To Delete the Docker image from local store
+``` bash
+docker rmi <Image_Id>
+```
 
-# To Inspect the Docker Image
-# docker inspect <Image_Name>:<Tag_Name>
+## To Delete the Docker Image which is used by Stopped Container
+``` bash
+docker rmi -f <Image_Id>
+```
 
-# To view running containers
-# docker ps
+## To Inspect the Docker Image
+``` bash
+docker inspect <Image_Name>:<Tag_Name>
+```
 
-# To view all containers
-# docker ps -a
+## To view running containers
+``` bash
+docker ps
+```
 
-# To Start the container
-# # docker start <Container_Name>
+## To view all containers
+``` bash
+docker ps -a
+```
 
-# To Kill the running container forcefully
-# docker kill <Container_Id>
+## To Start the container
+``` bash
+docker start <Container_Name>
+```
 
-# To kill the container properly
-# # docker stop <Container_Name>
+## To Kill the running container forcefully
+``` bash
+docker kill <Container_Id>
+```
 
-# To login to Docker Hub
-# docker login
+## To kill the container properly
+``` bash
+docker stop <Container_Name>
+```
 
-# To Tag the local docker image to docker hub repo
-# docker tag <Image_Name>:<Tag_Name> <Docker_User_Id>/<Repository_Name>:<Tag_Name>
+## To login to Docker Hub
+``` bash
+docker login
+```
 
-# To Push Docker Image to Docker Hub in the specific repository
-# docker push <Docker_User_Id>/<Repository_Name>:<Tag_Name>
+## To Tag the local docker image to docker hub repo
+``` bash
+docker tag <Image_Name>:<Tag_Name> <Docker_User_Id>/<Repository_Name>:<Tag_Name>
+```
 
-# To Create a container from docker image
-# docker create –name <Container_Name> <Image_Name>:<Tag_Name>
+## To Push Docker Image to Docker Hub in the specific repository
+``` bash
+docker push <Docker_User_Id>/<Repository_Name>:<Tag_Name>
+```
 
-# To remove all the container that are not in a running state
-# docker rm $(docker ps -a -q)
+## To Create a container from docker image
+``` bash
+docker create –name <Container_Name> <Image_Name>:<Tag_Name>
+```
 
-# To remove container
-# docker rm -f <Container_Id>
+## To remove all the container that are not in a running state
+``` bash
+docker rm $(docker ps -a -q)
+```
 
-# Edit the Container Contents
-# https://jhooq.com/docker-edit-file-inside-container/#:~:text=How%20to%20edit%20file%20within%20Docker%20container%20or,vi%2C%20nano%2C%20vim%20etc.%20...%20More%20items...%20
-# Step 1 : Get the Container Id
-# docker ps -a
-# Step 2 : Login inside the docker comtainer using Container Id using Root User (-u 0)
-# docker exec -u 0 -it <Container_Id> /bin/sh
-# Step 3 : Update the Package
-# apt-get update
-# Step 4 : Install "vim" editor and "nano" editor
-# apt-get install vim
+## To remove container
+``` bash
+docker rm -f <Container_Id>
+```
 
+## Edit the Container Contents
+``` bash
+https://jhooq.com/docker-edit-file-inside-container/#:~:text=How%20to%20edit%20file%20within%20Docker%20container%20or,vi%2C%20nano%2C%20vim%20etc.%20...%20More%20items...%20
+```
+
+## Step 1 : Get the Container Id
+``` bash
+docker ps -a
+```
+
+## Step 2 : Login inside the docker comtainer using Container Id using Root User (-u 0)
+``` bash
+docker exec -u 0 -it <Container_Id> /bin/sh
+```
+
+## Step 3 : Update the Package
+``` bash
+apt-get update
+```
+
+## Step 4 : Install "vim" editor and "nano" editor
+``` bash
+apt-get install vim
+```
