@@ -35,15 +35,15 @@ docker build -f Aspnetcoreapp\Dockerfile -t docker-multi-project:V1 .
 ```
 
 ``` bash
-# docker run -d -p 8081:80 --name docker-multi-project-container docker-multi-project:V1
+docker run -d -p 8081:80 --name docker-multi-project-container docker-multi-project:V1
 ```
 
 ``` bash
-# docker stop docker-multi-project-container
+docker stop docker-multi-project-container
 ```
 
 ``` bash
-# docker start docker-multi-project-container
+docker start docker-multi-project-container
 ```
 
 ``` bash
