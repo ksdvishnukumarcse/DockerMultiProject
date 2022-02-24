@@ -11,5 +11,6 @@ COPY --from=build-env /app/Aspnetcoreapp/out .
 ENTRYPOINT ["dotnet", "Aspnetcoreapp.dll"]
 
 # Incase to restore the packages from private of custom feed refer the below link to implement
+# https://www.programmingwithwolfgang.com/restore-nuget-inside-docker/
 # https://github.com/WolfgangOfner/MicroserviceDemo/blob/master/CustomerApi/CustomerApi/Dockerfile
 # https://github.com/WolfgangOfner/MicroserviceDemo/blob/master/CustomerApi/CustomerApi/nuget.config
