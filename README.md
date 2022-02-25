@@ -418,7 +418,6 @@ It is a Container Orchestration Tool, manages the Containers
             - Forward the request
             - Its has a logic of Forwarding mechanism
             - Its intelligent enough to forward the request from application pod to Database pod in the same node
-            -
 ```
 
 ``` bash
