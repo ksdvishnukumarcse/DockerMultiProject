@@ -182,7 +182,7 @@ docker rm -f <Container_Id>
 ## Edit the Container Contents
 
 ``` bash
-https://jhooq.com/docker-edit-file-inside-container/#:~:text=How%20to%20edit%20file%20within%20Docker%20container%20or,vi%2C%20nano%2C%20vim%20etc.%20...%20More%20items...%20
+[Steps to Edit the Docker Container](https://jhooq.com/docker-edit-file-inside-container/#:~:text=How%20to%20edit%20file%20within%20Docker%20container%20or,vi%2C%20nano%2C%20vim%20etc.%20...%20More%20items...%20)
 ```
 
 ## Step 1 : Get the Container Id
