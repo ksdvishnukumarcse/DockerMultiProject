@@ -245,7 +245,7 @@ services:
       - SomeEnvtKey1=SomeValue1 #<Environment_Key1>=<Environment_Value1>
       - SomeEnvtKey2=SomeValue2 #<Environment_Key2>=<Environment_Value2>
     volumes:
-      - somename:<Container_Directory_Path> #/var/lib/mysql/data
+      - SomeVolumeName:<Container_Directory_Path> #/var/lib/mysql/data
     
   MySecondContainerName:
     depends_on:
