@@ -402,3 +402,52 @@ It is a Container Orchestration Tool, manages the Containers
     - Often DB is hosted outside of K8s Cluster
 
 ```
+
+## K8s Architecture
+
+``` bash
+1. Worker Node
+    - Each node has multiple pods on it
+    - Different nodes are interact with each other through services which is sort of load balancer
+    - 3 process should be installed on every node
+        > Container Runtime - Ex. Docker Runtime
+        > Kubelet 
+            - Interacts with both Container and Node
+            - Starts the pod with a containr inside
+        > Kube Proxy
+            - Forward the request
+            - Its has a logic of Forwarding mechanism
+            - Its intelligent enough to forward the request from application pod to Database pod in the same node
+            -
+```
+
+``` bash
+2. Master Node
+    - Managing processes are handled by Master Nodes
+        > New Node added to Cluster
+        > Schedule a Pod
+        > Recreate Pod when Pod Crashes
+    - Multiple master nodes
+    - All the below process are load balanced
+    - 4 Processes are running in Master Node
+        > Api Server
+            -To deploy new application to K8s Cluster client will intercat through this
+            - Client will be interacted through Api Server. Client can be Kubelet (CLI), K8s Dashboard (UI), K8s API 
+            - Cluster Gateway
+            - Acts as a Gatekeeper for Authentication
+        > Schedular
+            - Api Server send the request to Schedular to schedule a Pod to one of the worker nodes.
+            - Schdular in intellignt enough to which worker node the pod has to be schduled.
+            - Schdular decides on which node new Pod  should be scheduled depends on how much resources is used, RAM
+        > Controller Manager
+            - Detects the Cluster state changes like Pod Crashes and recover to the K8s state
+            - Contoller manager send a request to Schdular to create a new pod
+        > etcd
+            - Its Key value store of a Cluster state
+            - Cluster brain
+            - Cluster changes (New Pod created, crahses, Recreated, etc..,) get stored in Key value store
+            - All the components works based on the etcd data.
+            - Actual application data wont get stored in etcd.
+
+
+```
