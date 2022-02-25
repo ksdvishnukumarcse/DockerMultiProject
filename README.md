@@ -244,6 +244,9 @@ services:
     environment:
       - SomeEnvtKey1=SomeValue1 #<Environment_Key1>=<Environment_Value1>
       - SomeEnvtKey2=SomeValue2 #<Environment_Key2>=<Environment_Value2>
+    volumes:
+      - somename:<Container_Directory_Path> #/var/lib/mysql/data
+    
   MySecondContainerName:
     depends_on:
       - MyFirstContainerName #Dependent Service / Container Name in case MySecondContainerName is depends on MyFirstContainerName
@@ -266,4 +269,28 @@ docker-compose -f <Docker_Compose_FileName.yaml> up -d
 Note:The below commpand will stop and remove the containers and also Docker network
 ``` bash
 docker-compose -f <Docker_Compose_FileName.yaml> down
+```
+
+## Docker Volumes are used for data persistence
+Note: In case data are stored in the container, while stop and remove the container data(s) are gone. This is the use case to have Docker Volumes to store the data. 
+
+Basically isolating the data from the container to Host machine and the mount the path in to the container
+
+## 3 Volume Type
+``` bash
+1. Host Volumes
+docker run -v <Host_Machine_Directory_Path>:<Container_Directory_Path>
+```
+
+``` bash
+2. Anonymous Volumes
+docker run -v <Container_Directory_Path>
+In this case Docker takes care of creating the directory and mount to the Container Directory
+```
+
+``` bash
+3. Named Volumes (Preferred Volume Type in Production)
+docker run -v <name>:<Container_Directory_Path>
+"name" can be any valid name
+In this reference the volume by name and mount to the Container Directory
 ```
