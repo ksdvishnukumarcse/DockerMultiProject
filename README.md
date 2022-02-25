@@ -182,7 +182,7 @@ docker rm -f <Container_Id>
 ## Edit the Container Contents
 
 ``` bash
-https://jhooq.com/docker-edit-file-inside-container/#:~:text=How%20to%20edit%20file%20within%20Docker%20container%20or,vi%2C%20nano%2C%20vim%20etc.%20...%20More%20items...%20
+https://jhooq.com/docker-edit-file-inside-container
 ```
 
 ## Step 1 : Get the Container Id
@@ -367,6 +367,7 @@ It is a Container Orchestration Tool, manages the Containers
     - 2 Type of service
         > External Service - It Opens a communication from external sources. Since the Url will have Node IP address, port number and Http protcol which is not that friendly. Due to that, Ingress came into the picture to tackle this which uses http and user friendly domain name.
         > Internal Service - It Opens a communication only for inmternal services
+    - Load Balancer
 * Ingress
     - Request comes to Ingress component from External source and forwards to the application Service.
 
@@ -389,7 +390,15 @@ It is a Container Orchestration Tool, manages the Containers
     - Connect it to the Pod, Pod will take read the configuration from it
 
 
-
-* Statefulset
 * Deployment
+    - This is for Stateless Apps
+    - Abstraction over Pods
+    - Its used to define a blue print pods. This is useful when any of the pod crashes or dies. Services redirect the request to different pod which is available in the replicaset where blueprint defines at the time of deployment.
+    - In real time we dont create the Pods we will create the Deployment. Deployment will take care of creating the "n" number of pods
+    - We can replicate only the application pods through deployments not the Database. Because, Database is stateful. To manage the database we need a special mechanism to have the replica which is "Statefulset"
+* Statefulset
+    - This is for Stateful Apps or Databases
+    - Its very Tedious to configure in K8s cluster
+    - Often DB is hosted outside of K8s Cluster
+
 ```
