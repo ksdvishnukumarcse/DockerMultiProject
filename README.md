@@ -320,6 +320,7 @@ It is a Container Orchestration Tool, manages the Containers
 * Ingress
     - Request comes to Ingress component from External source and forwards to the application Service.
 
+
 * Volumes
     - K8s does not manage the data persistance
     - For data store
