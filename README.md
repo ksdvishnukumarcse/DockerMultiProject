@@ -256,6 +256,9 @@ services:
     environment:
       - SomeEnvtKey1=SomeValue1 #<Environment_Key1>=<Environment_Value1>
       - SomeEnvtKey2=SomeValue2 #<Environment_Key2>=<Environment_Value2>
+  volumes:
+    SomeVolumeName:
+        driver: local # To tell docker create a directory and mount to reference Volumes
 ```
 
 ## To run the Docker Compose file
