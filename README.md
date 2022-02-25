@@ -297,3 +297,48 @@ docker run -v <name>:<Container_Directory_Path>
 "name" can be any valid name
 In this reference the volume by name and mount to the Container Directory
 ```
+
+## K8s
+It is a Container Orchestration Tool, manages the Containers
+
+## K8s Components
+``` bash
+* Pod
+    - Smallest unit of K8s
+    - Abstraction over container
+    - Pod is meant to run one application container
+    - Usually 1 application per Pod
+    - Each pod gets its own IP Address (1 IP Address / Pod)
+    - application is talk to each other through Pod Ip Address. In case Pod crashes, new pod will be recreated and its get new IP address. Due to this, we need to adjust the IP address every time. To handle this scenario, "Service and Ingress" are there.
+* Service
+    - Service holds the static / Permanent IP Address
+    - Attached to the Pod
+    - Life cycle of Pod and Service not connected
+    - 2 Type of service
+        > External Service - It Opens a communication from external sources. Since the Url will have Node IP address, port number and Http protcol which is not that friendly. Due to that, Ingress came into the picture to tackle this which uses http and user friendly domain name.
+        > Internal Service - It Opens a communication only for inmternal services
+* Ingress
+    - Request comes to Ingress component from External source and forwards to the application Service.
+
+* Volumes
+    - K8s does not manage the data persistance
+    - For data store
+    - In case of pod crashes or dies or retarted data would be gone. So to avoid that "Volumes" are helping
+    - Volumes are attaches to the Physical Storage where Pod Node is running or Remote Machine it can be Cloud or Some other Machine basically out side of the K8s cluster
+    
+
+* Secret
+    -Meant for Sensitibve Information like User Name or Password
+    -Its store as base 64 format
+    - Connect it to the Pod, Pod will take read the secret configuration from it
+* ConfigMap
+    - Meant for Non Sensitive information
+    - Its store as plain texrt format
+    - External configuration to out application. Usually application uses the database to store the data and the DB connection string ot End point URl will be configured in applications. The database connection strings or end point Url changes in case, then we need to rebuild the image after changes, Push the image to Repo, Redeploy everything. Its tedious and long process. To avoid this we use the "ConfigMap"
+    - Connect it to the Pod, Pod will take read the configuration from it
+
+
+
+* Statefulset
+* Deployment
+``` 
