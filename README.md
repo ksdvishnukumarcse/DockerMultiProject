@@ -447,6 +447,83 @@ It is a Container Orchestration Tool, manages the Containers
             - Cluster changes (New Pod created, crahses, Recreated, etc..,) get stored in Key value store
             - All the components works based on the etcd data.
             - Actual application data wont get stored in etcd.
+```
 
+## To see the version of  kubectl
 
+```bash
+kubectl version
+```
+
+## To get list of status of the nodes
+
+```bash
+kubectl get node
+```
+
+## To get list of pod
+
+```bash
+kubectl get pod
+```
+
+## To get list of services
+
+```bash
+kubectl get service
+```
+
+## To get list of deployment
+
+```bash
+kubectl get deployment
+```
+
+## To get list of replicaset
+
+- Replicaset is managing the replicas of a pod
+
+```bash
+kubectl get replicaset
+```
+
+## Kubectl Create Commands
+
+```bash
+kubectl create -h
+```
+
+## To create the deployment component
+
+- Blueprint to createa pods
+- Between deployment and pod there is another layer called "Replicaset"
+
+```bash
+kubectl create deployment <Deployment_Name> --image=<Docker_Image_Name>
+Ex: kubectl create deployment nginx-deployment --image=nginx
+```
+
+## To edit the deployment directly
+
+```bash
+kubectl edit deployment <Deployment_Name>
+Ex: kubectl edit deployment nginx-deployment
+```
+
+## Useful Debugging Commands for K8s
+
+```bash
+## To debug Pods
+kubectl logs <Pod_Name>
+Ex: kubectl logs nginx-deployment-6767546888-mlrkj
+
+## To debug Pod with detailed information
+kubectl describe pods <Pod_Name>
+Ex: kubectl describe pods nginx-deployment-6767546888-mlrkj
+
+## To debug Pod and see the files inside the pod
+kubectl exec -it <Pod_Name> -- bin/bash
+kubectl exec -it <Pod_Name> -- bin/sh
+kubectl exec -it <Pod_Name> sh
+Ex: kubectl exec -it nginx-deployment-6767546888-mlrkj sh
 ```
