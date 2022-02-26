@@ -527,3 +527,93 @@ kubectl exec -it <Pod_Name> -- bin/sh
 kubectl exec -it <Pod_Name> sh
 Ex: kubectl exec -it nginx-deployment-6767546888-mlrkj sh
 ```
+
+## To Delete the Pods
+
+```bash
+## To delete pods we need to delete the deployment
+kubectl delete deployment <Deployment_Name>
+```
+
+## kubectl Apply Command
+
+```bash
+- kubectl apply command is used to work with configuration file for the components
+- kubectl apply command knows that when to create and update the deployment
+kubectl apply -f <FILE_NAME.yaml>
+```
+
+## kubectl delete Command
+
+```bash
+kubectl delete -f <FILE_NAME.yaml>
+```
+
+## Syntax of K8s Component Configuration yaml file
+
+3 Parts
+    *Metadata
+    *Specification - Based on resource Attributes / properties will differ
+    *Status - It will be added by K8s
+
+```bash
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <Component_Name> #nginx-deployment
+  labels:
+    app: <Name> #nginx - it can be anything but it should be referred to service if any
+spec:
+  replicas: <Replicas_Count>
+  selector:
+    matchLabels:
+      app: <Component_Name> #nginx - it can be anything but it should be referred to other matching labels
+  template:
+    metadata:
+      labels:
+        app: <Component_Name> #nginx - it can be anything but it should be referred to other matching labels
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.16
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: <Container_Port> #8080
+```
+
+```bash
+apiVersion: v1
+kind: Service
+metadata:
+  name: <Component_Name> #nginx-service  
+spec:
+  selector:
+    app: <Deployment_Meta_Label_Name> #nginx
+  ports:
+    - protocol: <Protocol> #TCP
+      port:  <Service_Port> #80
+      targetPort: <Container_Port> #8080
+```
+
+## To check pod is using the service
+
+```bash
+kubectl desc pods -o wide # This wwill return the IP Address
+
+kubectl desc service # This will have Endpoint details where Pods IP address are mapped
+```
+
+## To see the status in the yaml file
+
+```bash
+kubectl get deployment <Deployment_Name> -o yaml
+```
+
+## To store the current deployment status in local machine
+
+```bash
+kubectl get deployment <Deployment_Name> -o yaml > <File_Name>.yaml
+```
