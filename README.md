@@ -643,3 +643,88 @@ kubectl get deployment <Deployment_Name> -o yaml > <File_Name>.yaml
 ```bash
 Add type as "LoadBalancer" in the Service Kind and Add nodePort for external access which range from 30000 to 32767
 ```
+
+## Namespace
+
+```bash
+- Namespace is virtual cluster in K8s cluster.
+- By default it has 4 Namespaces
+  *kube-system
+    - Custom / User components should not be created under this. 
+    - Its meant for System processes like Master node and kubectl process
+  *kube-public
+    - Publically access data
+    - A Configmap which cointains cluster information data even w/o authentication
+      kubectl cluster-info
+  *kube-node-lease
+    - Holds information about hearbeat of nodes
+    - Determines the availability of node
+    - Each node has associated lease Object in Namespace
+  *default
+    - Resources will be created under this when we create any components
+```
+
+## To create a Custom Namespace
+
+```bash
+- The need of custom Namespace is to have a logical grouping of resources inside a cluster
+
+- Incase the 2 different teams are having same deployment name with 2 different set of configuration then latest one will overrice the other one. So, always good to have a namesapce while creating the resource
+
+- Reuse the common shared Resources or components if we group it for different environment
+
+- Access and Limits on Resources on Namespace
+
+- To use the components (Secret, Configmap,etc..) which is located in other namespace we can use namespace.servicename as reference
+  Ex: <Service_Name>.<Namespace_Name>
+- Volume and node can not create inside the namespace. It lives globally in the cluster
+  Try with below commands to find which all components are not bound to namespaces
+  kubectl api-resources --namespaced=false
+
+- Below command helps to determin which all components must have namespaces
+  kubectl api-resources --namespaced=true
+
+- While creating any components which supports namespace if not provided it will belong to "default" namespace
+
+1. Through CLI Command
+kubectl create namespace my-namespace
+
+2. Through Configuration file in the meta property (Proper and recommented approach)
+metadata:
+  namespace: my-namespace
+  .
+  .
+
+3. Can attach the namespace through cli itself
+  kubectl apply -f <FileName>.yaml --namespace my-namespace  
+```
+
+## How to change the default namespace
+
+Need to install the tool called "kubens". 
+And ensure that all the kubens command will work with "Windows Power Shell"
+
+Ensure that you have chocolately package installed
+if not run the below commands in Windows Power Shell in Administrator mode
+(Kubens install step by step) [https://community.chocolatey.org/packages/kubens]
+
+```bash
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+```
+
+```bash
+choco install kubens
+```
+
+The below commands provide the list of namespace and default namespace will be highlighted
+
+```bash
+kubens
+```
+
+To changes the default namespace to custom namespace which is already created
+
+```bash
+kubens <Other_Namespace_Name>
+```
