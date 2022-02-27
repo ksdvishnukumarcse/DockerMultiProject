@@ -637,3 +637,9 @@ kubectl get deployment <Deployment_Name> -o yaml
 ```bash
 kubectl get deployment <Deployment_Name> -o yaml > <File_Name>.yaml
 ```
+
+## To add a service of Type "Load Balancer" for External IP
+
+```bash
+Add type as "LoadBalancer" in the Service Kind and Add nodePort for external access which range from 30000 to 32767
+```
