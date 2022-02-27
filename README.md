@@ -455,6 +455,12 @@ It is a Container Orchestration Tool, manages the Containers
 kubectl version
 ```
 
+## To get all the k8s components list
+
+```bash
+kubectl get all
+```
+
 ## To get list of status of the nodes
 
 ```bash
@@ -473,6 +479,12 @@ kubectl get pod
 kubectl get service
 ```
 
+## To get list of endpoints
+
+```bash
+kubectl get endpoints
+```
+
 ## To get list of deployment
 
 ```bash
@@ -485,6 +497,12 @@ kubectl get deployment
 
 ```bash
 kubectl get replicaset
+```
+
+## To get list of secrets
+
+```bash
+kubectl get secret
 ```
 
 ## Kubectl Create Commands
@@ -555,6 +573,8 @@ kubectl delete -f <FILE_NAME.yaml>
     *Metadata
     *Specification - Based on resource Attributes / properties will differ
     *Status - It will be added by K8s
+
+Multiple documents can be kept in single yaml file with 3 dash seperation (---)
 
 ```bash
 apiVersion: apps/v1

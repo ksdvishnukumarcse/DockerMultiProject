@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 27017
+        env:
+          - name: MONGO-INITDB-ROOT-USERNAME
+            valueFrom: 
+              secretKeyRef:
+                name: mongodb-mysecret
+                key: mongo-root-username
+          - name: MONGO-INITDB-ROOT-PASSWORD
+            valueFrom: 
+              secretKeyRef:
+                name: mongodb-mysecret
+                key: mongo-root-password
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+  labels:
+    app: mongodb
+spec:
+  selector:
+    app: mongodb 
+    # This is as same as what is mentioned in deployment
+  ports:
+  - protocol: TCP
+    port: 27018 # Service Port
+    targetPort: 27017 # Container Port which is mentioned in deployment
+
+
+
+
