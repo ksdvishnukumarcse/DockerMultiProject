@@ -1006,3 +1006,24 @@ Helm version 2 comes with 2 Parts
 
 - Downside os Tiller is Too much of power inside the K8s cluter which is securoty issue it has lot of permissions
 - In Helm 3 Tiller is removed to solve the Security concern
+
+## K8s Volumes
+
+Volumes are to persist data
+3 Different type
+
+1. Persistent Volume
+2. Persistent Volume Claim
+3. Storage Class
+
+## Need of K8s Volumes
+
+Data will be stored inside the container of the Pod. When the pod restarts /creash data will be lost.
+To solve this we have Volumes in place.
+
+## Persistent Volume
+
+- A Cluster resource like RAM, CPU
+- Created via Yaml file
+- Managed by Maintainer
+- Not Namesapced. It accessable to cluster
