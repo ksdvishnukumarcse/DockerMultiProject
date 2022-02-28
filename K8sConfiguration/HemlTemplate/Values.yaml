@@ -1,0 +1,5 @@
+name: my-app
+container:
+  port: 80
+  name: my-app-container
+  image: my-app-image

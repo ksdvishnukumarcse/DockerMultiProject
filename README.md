@@ -882,7 +882,7 @@ spec:
               number: 8082
 ```
 
-## To COnfigure TLS Certiifcate
+## To Configure TLS Certiifcate
 
 ```bash
 apiVersion: networking.k8s.io/v1
@@ -918,3 +918,91 @@ data:
   tls.crt: <BASE_64_CERTIFICATE_CONTENT> # Name of the Key supposed to be tls.crt
   tls.key: <BASE_64_KEY_CONTENT> # Name of the Key supposed to be tls.key
 ```
+
+## Helm & Helm Charts
+
+- Helm is package manager for K8s
+- Bundle of Yaml file are packaged together to reuse that with multiple applications.
+  Ex: Consider we want to use the Elastic Stack for Logging which required like ConfigMap, Secret, StatefulSet,Service, K8s Users with Permission. Instead of we create again and again the same thing we createa yaml configuration files for all the above listed components and group it package it and puh it to Helm repository. This bundle of Yaml file called as "Helm Charts".
+- Using Helm we can create the Helm Charts
+
+To search Helm Chart in Help Repository
+
+```bash
+helm search <HELM_CHART_NAME>
+```
+
+## Helm Templating Engine
+
+- Consider we have multiple Microservice. For each Microservice we need to write the Yaml file. In this case, most of the values are same except Name of the Pod/Deployment, Port, image name.
+- Instead of writing multiple yaml files, we can create a template file where place holder will be replaced in those replaces.
+- Values defined either via yaml file or --set flag
+
+Pod Yaml file
+
+```bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    name: {{ .Values.container.name }}
+spec:
+  containers:
+  - name: {{ .Values.container.name }}
+    image: {{ .Values.container.image }}
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: {{ .Values.container.port }}
+```
+
+Values file
+
+```bash
+name: my-app
+container:
+  port: 80
+  name: my-app-container
+  image: my-app-image
+```
+
+## Heml Chart Structure
+
+```bash
+mychart/                # Top level "mychart" folder name of the chart
+  Chart.yaml            # Meta info about the chart like name, version, list of dependancies
+  Values.yaml           # Values for template files. This is the default values we can override later
+  charts/               # Chart dependencies
+  templates/            # Actual template file
+```
+
+## To install Helm Chart
+
+```bash
+helm install <Chart_Name>
+values.yaml files values by default will be applied at this command
+
+There are different ways are there to override the values
+1. Through install command with custom values yaml file (Can overrice existing properties or can add new properties as well)
+    
+    helm install --values=my-values.yaml <CHART_NAME>
+
+2. Through CLI Command itself with the help of set flag
+
+    helm install --set <PROPETY_NAME>=<VALUE> <XHART_NAME>
+```
+
+## Helm Version 2 vs 3
+
+Helm version 2 comes with 2 Parts
+  Client - helm CLI
+  Server - Tiller
+
+- Client send a request to tiller, Tiller stores a copy of the yaml file for future reference which is called "Chart Execution History"
+- Can rollback to previous revision
+
+- Downside os Tiller is Too much of power inside the K8s cluter which is securoty issue it has lot of permissions
+- In Helm 3 Tiller is removed to solve the Security concern
