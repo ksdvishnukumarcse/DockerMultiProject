@@ -728,3 +728,97 @@ To changes the default namespace to custom namespace which is already created
 ```bash
 kubens <Other_Namespace_Name>
 ```
+
+## K8s Ingress
+
+Difference between Ingress vs External Service
+
+- Usually to connect the application which is running inside the Pod through service. Where service will expose the Ip address and Port to access the service publically intern it will call the application. But this is not the ideal way in production due to security issues.
+
+- To tackle this, we use Ingress, where Ingress receive the request from browser (domain Url instead of IP address) and then formward it to Service that should be internal.
+
+## External Service sample file
+
+```bash
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongoexpress-service
+spec:
+  selector:
+    app: mongodbexpress
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8081
+    targetPort: 8081
+    nodePort: 30000
+```
+
+## Ingress Service sample file
+
+```bash
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress-service
+spec:
+  rules:
+  - host: myhost.com # Need to map the IP address of the Cluster Node with this domain
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: mongoexpress-service # This should have the Internal service name
+            port: 
+              number: 8081
+```
+
+Ingress Service alone not sufficient to configure Ingress need to install Ingress Controller as well to work with.
+
+## Ingress Controller
+
+There are multiple ingress Controllers are there. K8s provide the nginx Ingress Controller
+
+```bash
+- The function of Ingress controller is evaluate the rules
+- Manage Redirections
+- Entry point to the CLuster
+```
+
+## To check nginx Ingress controller isntalled or not
+
+```bash
+kubectl get pod -n kube-system
+kubectl get pods --namespace=ingress-nginx
+```
+
+If not run the below command
+
+## To install nginx controller
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/cloud/deploy.yaml
+```
+
+After isnatlled we can see that nginx ingress namespace is created. Can verify with below commands
+
+```bash
+kubectl get ns
+```
+
+After creating the ingress, execute the below command to get the IPAddess for the ingress. we need to resolve the domain name with this IPAddress in the host file
+
+Ingress has default Backend. Below command will provide theose details
+
+```bash
+kubectl describe ingress <INGRESS_NAME> -n <NAMESPACE_NAME>
+```
+
+## To Configure Default Backend in Ingress
+
+```bash
+* Create a service with "default-http-backend" as a Service name and map the port to 80
+```
