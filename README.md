@@ -733,7 +733,7 @@ kubens <Other_Namespace_Name>
 
 Difference between Ingress vs External Service
 
-- Usually to connect the application which is running inside the Pod through service. Where service will expose the Ip address and Port to access the service publically intern it will call the application. But this is not the ideal way in production due to security issues.
+- Usually to connect the application which is running inside the Pod through service (Cluster IP). Where service (Cluster IP) will expose the Ip address and Port to access the service publically intern it will call the application. But this is not the ideal way in production due to security issues.
 
 - To tackle this, we use Ingress, where Ingress receive the request from browser (domain Url instead of IP address) and then formward it to Service that should be internal.
 
@@ -1044,3 +1044,32 @@ To solve this we have Volumes in place.
   -> Workermust know about each change to be up to date
   -> In case if new Pods are added it will take a copy from the previous Pod not like just any Pod.
   -> Its also not reliable at some point in case cluster crashes or Ststefulset deleted or All pods are died.
+
+## Services
+
+- Each Pod has its own IP address.
+- Pods are Ephemeral means that they can destroy frequently
+- Services has stable are static IP address
+- Services also provide loadbalaning
+- Loose coupling
+
+```bash
+Type of Services
+
+  1. ClusterIP Services
+    - Default Type
+    - Used as Internal Service
+  2. Headless Services
+    - Pod wants to connect to specific Pod directly
+    - Its used when working with Stateful applications
+    - Setting the ClusterIP property to None in Service spec
+    - 
+  3. NodePort Services
+    - Setting the ClusterIP property to NodePort in Service spec
+    - External traffic has access to fixed port on each worker node
+    - Not efficient
+  4. Load Balancer Services
+    - Setting the ClusterIP property to LoanBalancer in Service spec
+    - Better Option
+    - 
+```
