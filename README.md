@@ -1027,3 +1027,21 @@ To solve this we have Volumes in place.
 - Created via Yaml file
 - Managed by Maintainer
 - Not Namesapced. It accessable to cluster
+
+## Stateless vs Statful Applications
+
+- Statless applications are deployed using deployment component
+  -> Easy to scale
+  -> Random hash will be generated for newer Pod if Pod dies or crashes
+- Stateful applications are deployed using Statefulset component
+  -> Its very difficult in replication
+  -> It will maintain the same Pod identity. It can not be Interchangable
+  -> While scalling 2 types of pods will be there. Master and Worker Pods
+  -> Writing will happen only though Master Pods
+  -> Reading can happen from any of the Pods
+  -> Do not use same Physical storage
+  -> Continously synchronizing of the data
+  -> Workermust know about each change to be up to date
+  -> In case if new Pods are added it will take a copy from the previous Pod not like just any Pod.
+  -> Its also not reliable at some point in case cluster crashes or Ststefulset deleted or All pods are died.
+  ->  
