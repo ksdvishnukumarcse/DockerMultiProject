@@ -701,7 +701,7 @@ metadata:
 
 ## How to change the default namespace
 
-Need to install the tool called "kubens". 
+Need to install the tool called "kubens".
 And ensure that all the kubens command will work with "Windows Power Shell"
 
 Ensure that you have chocolately package installed
@@ -821,4 +821,100 @@ kubectl describe ingress <INGRESS_NAME> -n <NAMESPACE_NAME>
 
 ```bash
 * Create a service with "default-http-backend" as a Service name and map the port to 80
+```
+
+## Configure multiple path for the same host in Ingress
+
+```bash
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress-service
+spec:
+  rules:
+  - host: myhost.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/analytics"
+        backend:
+          service:
+            name: analytics-service
+            port: 
+              number: 8081
+      - pathType: Prefix
+        path: "/shopping"
+        backend:
+          service:
+            name: shopping-service
+            port: 
+              number: 8082
+```
+
+## To Configure multiple domains or sub domains in Ingress (Multiple Host)
+
+```bash
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress-service
+spec:
+  rules:
+  - host: analytics.myhost.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: analytics-service
+            port: 
+              number: 8081
+  - host: shopping.myhost.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/shopping"
+        backend:
+          service:
+            name: shopping-service
+            port: 
+              number: 8082
+```
+
+## To COnfigure TLS Certiifcate
+
+```bash
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress-service
+  labels:
+    name: mongoexpress-service
+spec:
+  tls:
+    - hosts:
+      - myhost.com
+      secretName: <Name_Of_the_Secret_Component>
+  rules:
+  - host: myhost.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: mongoexpress-service
+            port: 
+              number: 8081
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: <Name_Of_the_Secret_Component>
+  namespace: <NAMESPACE_SHOULD_BE_INGRESS_NAMESPACE>
+type: kubernetes.io/tls # This should be present for TLS
+data:
+  tls.crt: <BASE_64_CERTIFICATE_CONTENT> # Name of the Key supposed to be tls.crt
+  tls.key: <BASE_64_KEY_CONTENT> # Name of the Key supposed to be tls.key
 ```
