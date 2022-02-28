@@ -1044,4 +1044,3 @@ To solve this we have Volumes in place.
   -> Workermust know about each change to be up to date
   -> In case if new Pods are added it will take a copy from the previous Pod not like just any Pod.
   -> Its also not reliable at some point in case cluster crashes or Ststefulset deleted or All pods are died.
-  ->  
